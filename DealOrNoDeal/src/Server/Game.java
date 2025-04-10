@@ -16,6 +16,10 @@ public class Game {
     Map<int[], String> textStart = new HashMap<>();
     Map<Integer, int[]> caseValues = new HashMap<>();
     Map<Integer, Double> cashValues = new HashMap<>();
+    Map<Double, int[]> cashChecklist = new HashMap<>();
+    Set<Double> possibleValues = new HashSet<>();
+    int roundNo = 1;
+    Double[] multipliers = new Double[9];
 
     Game(String setFile) {
         initializeCaseValues();
@@ -49,6 +53,7 @@ public class Game {
             String firstWord = parts[0];
             for (int z = 1; z <= 26; z++) {
                 cashValues.put(Integer.valueOf(z), Double.valueOf(firstWord));
+                possibleValues.add(Double.valueOf(firstWord));
                 if (parts.length < 2) {
                     break;
                 }
@@ -124,6 +129,38 @@ public class Game {
 
         textStart.put(new int[]{7, 10}, "$750,000");
         textStart.put(new int[]{7, 11}, "$1,000,000");
+
+
+        cashChecklist.put(Double.valueOf("0.01"), new int[]{1, 9});
+        cashChecklist.put(Double.valueOf("1"), new int[]{2, 9});
+        cashChecklist.put(Double.valueOf("5"), new int[]{3, 9});
+        cashChecklist.put(Double.valueOf("10"), new int[]{4, 9});
+        cashChecklist.put(Double.valueOf( "25"), new int[]{5, 9});
+        cashChecklist.put(Double.valueOf("50"), new int[]{6, 9});
+
+        cashChecklist.put(Double.valueOf("75"), new int[]{1, 10});
+        cashChecklist.put(Double.valueOf("100"), new int[]{2, 10});
+        cashChecklist.put(Double.valueOf("200"), new int[]{3, 10});
+        cashChecklist.put(Double.valueOf("300"), new int[]{4, 10});
+        cashChecklist.put(Double.valueOf("400"), new int[]{5, 10});
+        cashChecklist.put(Double.valueOf("500"), new int[]{6, 10});
+
+        cashChecklist.put(Double.valueOf("750"), new int[]{1, 11});
+        cashChecklist.put(Double.valueOf("1000"), new int[]{2, 11});
+        cashChecklist.put(Double.valueOf("5000"), new int[]{3, 11});
+        cashChecklist.put(Double.valueOf("10000"), new int[]{4, 11});
+        cashChecklist.put(Double.valueOf("25000"), new int[]{5, 11});
+        cashChecklist.put(Double.valueOf("50000"), new int[]{6, 11});
+
+        cashChecklist.put(Double.valueOf("75000"), new int[]{1, 12});
+        cashChecklist.put(Double.valueOf("100000"), new int[]{2, 12});
+        cashChecklist.put(Double.valueOf("200000"), new int[]{3, 12});
+        cashChecklist.put(Double.valueOf("300000"), new int[]{4, 12});
+        cashChecklist.put(Double.valueOf("400000"), new int[]{5, 12});
+        cashChecklist.put(Double.valueOf("500000"), new int[]{6, 12});
+
+        cashChecklist.put(Double.valueOf("750000"), new int[]{7, 10});
+        cashChecklist.put(Double.valueOf("1000000"), new int[]{7, 11});
     }
 
     public static String getValueAfterSpace(String text, int index) {

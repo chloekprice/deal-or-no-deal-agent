@@ -40,8 +40,26 @@ class MyCanvas extends JComponent {
         sqrHght = 75.0;
     }
 
-    public void updatePosition() {
+    public void updateCaseColors(int caseNo) {
+        int[] chosenCase = game.caseValues.get(Integer.valueOf(caseNo));
+        game.stageSet[chosenCase[1]][chosenCase[0]] = 0;
+        game.textStart.put(chosenCase, " ");
+        Double value = game.cashValues.get(caseNo);
+        game.possibleValues.remove(value);
+        game.stageSet[game.cashChecklist.get(value)[1]][game.cashChecklist.get(value)[0]] = 2;
 
+        repaint();
+    }
+
+    public void updateCaseText(int caseNo) {
+        int[] chosenCase = game.caseValues.get(Integer.valueOf(caseNo));
+        game.stageSet[chosenCase[1]][chosenCase[0]] = 0;
+        game.textStart.put(chosenCase, " ");
+
+        game.textStart.put(new int[]{8, 3}, String.valueOf(caseNo));
+        game.caseValues.put(Integer.valueOf(caseNo), new int[]{8, 3});
+
+        repaint();
     }
 
     public void paint(Graphics g) {
@@ -86,8 +104,6 @@ public class DealOrNoDealGame extends JFrame {
     BufferedReader sin;
 
     public DealOrNoDealGame(String fnombre) {
-        initCaseValues();
-
         game = new Game(fnombre);
         int width = 500;
         int height = 500;
@@ -104,7 +120,7 @@ public class DealOrNoDealGame extends JFrame {
         setTitle("Deal Or No Deal Agent");
 
         getConnection(3333, fnombre);
-        survive();
+        play();
     }
 
     private void getConnection(int port, String fnombre) {
@@ -122,8 +138,8 @@ public class DealOrNoDealGame extends JFrame {
         }
     }
 
-    void initCaseValues() {
-
+    Double getNewDeal() {
+        return 0.0;
     }
 
     void makeDeal() {
@@ -134,12 +150,37 @@ public class DealOrNoDealGame extends JFrame {
 
     }
 
-    String getSonarReadings() {
-        return "";
-    }
 
-    void survive() {
+    void play() {
+        int chosenCase;
+        boolean theEnd = false;
+        Double winnings = 0.0;
 
+        while (true) {
+            try {
+                chosenCase = Integer.parseInt(sin.readLine());
+                System.out.println("Chose case: " + chosenCase);
+//                moveRobot(action);
+
+//                if (mundo.grid[xpos][ypos] == 3) {
+//                    System.out.println("Winner");
+//                    //sout.println("win");
+//                    sonars += "winner";
+//                    theEnd = true;
+//                } else if (mundo.grid[xpos][ypos] == 2) {
+//                    System.out.println("Loser");
+//                    //sout.println("lose");
+//                    sonars += "loser";
+//                    theEnd = true;
+//                }
+
+
+                if (theEnd)
+                    break;
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
     }
 
 
